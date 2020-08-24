@@ -1,0 +1,70 @@
+{
+  "name": "auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "12.18.2"
+  },
+  "scripts": {
+    "local": "migrate-mongo up && migrate-mongo status &&./node_modules/.bin/nodemon --inspect=0.0.0.0:5001 index.js",
+    "docker": "docker-compose up --build",
+    "docker:mongo": "docker-compose up app-mongo",
+    "start": "node index",
+    "test": "jest --watchAll",
+    "test:coverage": "jest --collectCoverage --runInBand --forceExit"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ajv": "^6.12.4",
+    "axios": "^0.19.2",
+    "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
+    "fastify": "^3.2.0",
+    "fastify-cors": "^4.1.0",
+    "fastify-helmet": "^5.0.0",
+    "fastify-plugin": "^2.3.0",
+    "http-status-codes": "^1.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "migrate-mongo": "^8.1.1",
+    "mongoose": "^5.9.28",
+    "pino": "^6.5.1",
+    "pino-pretty": "^4.1.0",
+    "uuid": "^8.3.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.9",
+    "@types/node": "^14.0.27",
+    "@types/pino": "^6.3.0",
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jest": "^23.20.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-security": "^1.4.0",
+    "faker": "^5.0.0",
+    "jest": "^26.2.2",
+    "nodemon": "^2.0.4"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/__tests__/config/",
+      "coverage",
+      "fixtures"
+    ],
+    "setupFiles": [],
+    "coverageDirectory": "./__tests__/coverage/",
+    "coveragePathIgnorePatterns": [
+      "/__tests__/"
+    ],
+    "verbose": true,
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "cobertura"
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+version: "3"
+services:
+  app-nginx:
+    build:
+      context: ./
+      dockerfile: ./.local_debug/Dockerfile-nginx
+    ports:
+      - "80:80"
+    links:
+      - app-auth
+    depends_on:
+      - app-auth
+
+  app-auth:
+    build:
+      context: ./
+      dockerfile: ./.local_debug/Dockerfile-auth
+    env_file:
+      - ./.local_debug/Docker.env
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    links:
+      - app-mongo
+    depends_on:
+      - app-mongo
+    volumes:
+      - ./app:/usr/src/app/app
+
+  app-mongo:
+    image: mongo:4.0-xenial
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:

@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "b1c5844b-9d2c-4b0a-a3f5-e8f1d2d7299b",
+		"name": "Microservices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fd623507-1faa-4f2b-876c-cfd67859d64e",
+								"exec": [
+									"const response = pm.response.json();",
+									"pm.environment.set(\"userAccessToken\", response.accessToken);",
+									"pm.environment.set(\"userUuid\", response.user.uuid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"{{userPassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{authUrl}}/auth/account/login",
+							"host": [
+								"{{authUrl}}"
+							],
+							"path": [
+								"auth",
+								"account",
+								"login"
+							]
+						},
+						"description": "Register a new user using email and password"
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fd623507-1faa-4f2b-876c-cfd67859d64e",
+								"exec": [
+									"const response = pm.response.json();",
+									"pm.environment.set(\"userActivationCode\", response.accessToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"{{userPassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/account",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"account"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
