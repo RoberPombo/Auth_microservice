@@ -14,6 +14,13 @@ _Si tienes Docker instalado (https://docs.docker.com/get-docker/) la forma más 
 Dentro de la carpeta ./local_debug, renombrar el template a Docker.env
 Ejecutar: npm run docker_
 
+_Además hay una migration que crea un usuario en la BBDD (se necesita el archivo .env en la carpeta raíz):_
+
+```
+email: admin@admin.com
+password: admin12!
+```
+
 _Para debugear el contenedor de docker, puedes añadir o crear el archivo (.vscode/launch.json) con la siguiente configuración:_
 
 ```

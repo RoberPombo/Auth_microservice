@@ -1,5 +1,6 @@
 'use strict';
 
+const { errorMapper } = require('../../mappers');
 const { registerUc } = require('../../../domain/use-cases/account');
 
 const registerController = async (request, reply) => {
@@ -14,9 +15,10 @@ const registerController = async (request, reply) => {
 
     reply.send(user);
   } catch (error) {
-    context.logger.error(error.message);
+    context.logger
+      .error(`${error.name}: ${JSON.stringify(error.message)}`);
 
-    throw new Error(error.message);
+    throw errorMapper(error);
   }
 };
 

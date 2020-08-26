@@ -8,18 +8,18 @@ const { logger } = require('../../lib');
 const { APP_NAME } = process.env;
 
 /**
- * Check if correlation Id header exist
+ * Check if request Id header exist
  * @param {Object} headers
  * @returns {Boolean | String}
  */
 const getRequestHeaders = (headers) => {
-  const { 'x-correlation-id': correlationId } = headers;
+  const { 'x-request-id': requestId } = headers;
 
-  return uuidValidate(correlationId) && correlationId;
+  return uuidValidate(requestId) && requestId;
 };
 
 /**
- * Adds context object with correlation Id to the request object.
+ * Adds context object with request Id to the request object.
  * @param {Object} request
  * @param {Object} reply
  * @param {Function} done
@@ -27,10 +27,10 @@ const getRequestHeaders = (headers) => {
 const contextHook = (request, reply, done) => {
   try {
     const { headers } = request;
-    const correlationId = getRequestHeaders(headers) || uuidV4();
+    const requestId = getRequestHeaders(headers) || uuidV4();
 
     request.context = {
-      correlationId,
+      requestId,
       microservice: APP_NAME,
       init: Date.now(),
       logger,
