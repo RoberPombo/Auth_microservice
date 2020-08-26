@@ -42,3 +42,5 @@ _Para debugear el contenedor de docker, puedes añadir o crear el archivo (.vsco
 ```
 
 _Además dentro de la carpeta (docs/postman) está la collection y el environment para probar el microservicio desde Postman._
+
+_Al abrir el proyecto con docker se levanta un docker para mostrar el swagger (http://localhost:8080/)._

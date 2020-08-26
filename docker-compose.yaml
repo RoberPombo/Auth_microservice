@@ -26,6 +26,13 @@ services:
       - app-mongo
     volumes:
       - ./app:/usr/src/app/app
+  
+  app-auth-swagger:
+    build:
+      context: ./
+      dockerfile: ./.local_debug/Dockerfile-swagger
+    ports:
+      - "8080:8080"
 
   app-mongo:
     image: mongo:4.0-xenial

@@ -13,7 +13,7 @@ const registerController = async (request, reply) => {
 
     const user = await registerUc(context, email, password);
 
-    reply.send(user);
+    reply.code(201).send(user);
   } catch (error) {
     context.logger
       .error(`${error.name}: ${JSON.stringify(error.message)}`);

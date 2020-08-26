@@ -1,0 +1,136 @@
+openapi: 3.0.2
+
+info:
+  title: AUTH MICROSERVICE
+  description: Swagger for AUTH API
+  contact:
+    email: robertopombootero@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+    
+servers:
+  - url: http://localhost/api/auth
+    description: Local debug
+
+tags:
+  - name: Account
+    description: Accounts endpoints
+
+paths:
+  /account:
+    post:
+      tags: 
+        - Account
+      summary: Create a new user
+      operationId: register
+      description: Register a new user using an email and a password
+      requestBody:
+        $ref: '#/components/requestBodies/RegisterData'
+      responses:
+        201:
+          $ref: '#/components/responses/201-RegisterResponse'
+
+  /account/login:
+    post:
+      tags:
+        - Account
+      summary: Login a user
+      operationId: login
+      description: Login a user by email and password
+      requestBody:
+        $ref: '#/components/requestBodies/LoginData'
+      responses:
+        200:
+          $ref: '#/components/responses/200-LoginResponse'
+
+components:
+  requestBodies:
+    LoginData:
+      description: Body containing email and password
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                $ref: '#/components/schemas/Email'
+              password:
+                $ref: '#/components/schemas/Password'
+    RegisterData:
+      description: Body containing email and password
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                $ref: '#/components/schemas/Email'
+              password:
+                $ref: '#/components/schemas/Password'
+
+  responses:
+    200-LoginResponse:
+      description: User logged correctly
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              accessToken:
+                $ref: '#/components/schemas/AccessToken'
+              refreshToken:
+                $ref: '#/components/schemas/RefreshToken'
+              expiresIn:
+                $ref: "#/components/schemas/ExpiresIn"
+              user:
+                $ref: '#/components/schemas/UserProfile'
+    201-RegisterResponse:
+      description: User created correctly
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              activationCode:
+                $ref: '#/components/schemas/ActivationCode'
+
+  schemas:
+    AccessToken:
+      type: string
+      example: flj...d3f
+    
+    ActivationCode:
+      type: string
+      example: flj...d3f
+
+    Email:
+      type: string
+      example: test@test.com
+
+    ExpiresIn:
+      type: number
+      example: 1000
+
+    Password:
+      type: string
+      example: password12!
+    
+    RefreshToken:
+      type: string
+      example: dfs...fws
+
+    UserProfile:
+      type: object
+      properties:
+        uuid:
+          $ref: '#/components/schemas/UserUuid'
+        email:
+          $ref: '#/components/schemas/Email'
+      
+    UserUuid:
+      type: string
+      example: 7c06350d-cfd9-4b68-ad4b-5d2da829815d
