@@ -13,14 +13,14 @@ class ConflictError extends Error {
 }
 
 const createConflictError = (title, detail, pointer = null) => {
-  const message = {
+  const message = [{
     code: CONFLICT,
     source: {
       pointer,
     },
     detail,
     title,
-  };
+  }];
 
   return new ConflictError(CONFLICT, message);
 };

@@ -14,14 +14,14 @@ class UnauthorizedError extends Error {
 }
 
 const createUnauthorizedError = (title, detail, pointer = null) => {
-  const message = {
+  const message = [{
     code: UNAUTHORIZED,
     source: {
       pointer,
     },
     detail,
     title,
-  };
+  }];
 
   return new UnauthorizedError(UNAUTHORIZED, message);
 };

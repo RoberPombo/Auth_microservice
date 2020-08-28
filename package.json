@@ -45,7 +45,13 @@
     "eslint-plugin-security": "^1.4.0",
     "faker": "^5.0.0",
     "jest": "^26.2.2",
+    "mongodb-memory-server": "^6.6.6",
     "nodemon": "^2.0.4"
+  },
+  "config": {
+    "mongodbMemoryServer": {
+      "version": "v4.4-latest"
+    }
   },
   "jest": {
     "testEnvironment": "node",
@@ -55,7 +61,9 @@
       "coverage",
       "fixtures"
     ],
-    "setupFiles": [],
+    "setupFiles": [
+      "./__tests__/config/setup.js"
+    ],
     "coverageDirectory": "./__tests__/coverage/",
     "coveragePathIgnorePatterns": [
       "/__tests__/"

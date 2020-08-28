@@ -2,7 +2,7 @@
 
 require('dotenv').config();
 
-const { mongo } = require('./app/infrastructure/database');
+const { mongo } = require('./app/infrastructure/databases');
 const { httpServer } = require('./app/infrastructure/http-server');
 const { logger } = require('./app/lib');
 
@@ -13,7 +13,7 @@ const init = async () => {
     await mongo.connect();
     await httpServer.init(AUTH_HTTP_PORT);
   } catch (error) {
-    logger.fatal(error);
+    logger.error(error);
     process.exit(1);
   }
 };
@@ -21,10 +21,10 @@ const init = async () => {
 init();
 
 process.on('uncaughtException', (error) => {
-  logger.fatal(`uncaughtException: ${error}`);
+  logger.error(`uncaughtException: ${error}`);
   process.exit(1);
 });
 process.on('unhandledRejection', (error) => {
-  logger.fatal(`unhandledRejection: ${error}`);
+  logger.error(`unhandledRejection: ${error}`);
   process.exit(1);
 });

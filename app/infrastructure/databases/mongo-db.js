@@ -1,3 +1,5 @@
+'use strict';
+
 const mongoose = require('mongoose');
 
 const { mongoConfig } = require('../../domain/config');
@@ -11,9 +13,6 @@ const connect = async (connectionString = MONGO_CONNECTION_STING) => mongoose
 const disconnect = async () => mongoose
   .disconnect();
 
-const startSession = async () => mongoose
-  .startSession();
-
 mongoose.connection
   .on('connected', () => logger
     .info('Connected to MongoDB'))
@@ -25,5 +24,4 @@ mongoose.connection
 module.exports = {
   connect,
   disconnect,
-  startSession,
 };

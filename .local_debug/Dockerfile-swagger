@@ -3,6 +3,6 @@ FROM swaggerapi/swagger-ui
 
 COPY ./docs/swagger /usr/share/nginx/html/swagger
 
-ENV URL="/swagger/swagger.yml"
+ENV URLS="[{name:\"Auth Microservice\", url:\"/swagger/swagger.yml\"}]"
 
 CMD ["sh", "/usr/share/nginx/run.sh"]

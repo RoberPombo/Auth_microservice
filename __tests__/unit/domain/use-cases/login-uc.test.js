@@ -25,7 +25,7 @@ describe('[use cases - unit test] [login]', () => {
   });
 
   it('Should return authentication tokens and user info', async () => {
-    await expect(loginUC(CONTEXT, USER_DATA.email, PASSWORD))
+    await expect(loginUC(CONTEXT, { email: USER_DATA.email, password: PASSWORD }))
       .resolves.toMatchObject({
         accessToken: expect.any(String),
         refreshToken: expect.any(String),
@@ -37,7 +37,7 @@ describe('[use cases - unit test] [login]', () => {
   it('Should fail and return a ValidationError', async () => {
     const MALFORMED_PASSWORD = 'A1';
 
-    await expect(loginUC(CONTEXT, USER_DATA.email, MALFORMED_PASSWORD))
+    await expect(loginUC(CONTEXT, { email: USER_DATA.email, password: MALFORMED_PASSWORD }))
       .rejects.toMatchObject({
         name: 'ValidationError',
       });
@@ -46,7 +46,7 @@ describe('[use cases - unit test] [login]', () => {
   it('Should fail and return a UnauthorizedError', async () => {
     const WRONG_PASSWORD = 'Aa12345-';
 
-    await expect(loginUC(CONTEXT, USER_DATA.email, WRONG_PASSWORD))
+    await expect(loginUC(CONTEXT, { email: USER_DATA.email, password: WRONG_PASSWORD }))
       .rejects.toMatchObject({
         name: 'UnauthorizedError',
       });
@@ -59,7 +59,7 @@ describe('[use cases - unit test] [login]', () => {
     };
     UserRepository.findByEmail = jest.fn().mockReturnValue(USER_2);
 
-    await expect(loginUC(CONTEXT, USER_2.email, PASSWORD))
+    await expect(loginUC(CONTEXT, { email: USER_2.email, password: PASSWORD }))
       .rejects.toMatchObject({
         name: 'ConflictError',
       });

@@ -13,7 +13,19 @@ const PROJECTION = {
   'permissions.applications._id': 0,
 };
 
-const createUser = async (email, password, activationCode) => {
+/**
+ *
+ * @param {Object} user user data
+ * @param {String} user.email
+ * @param {String} user.password
+ * @param {String} user.activationCode
+ * @param {Number} user.sendAt
+ * @returns {Promise<Object>}
+ * @throws ConflictError
+ */
+const createUser = async ({
+  email, password, activationCode, sendAt,
+}) => {
   try {
     const user = await UserModel.create({
       uuid: uuidV4(),
@@ -21,7 +33,7 @@ const createUser = async (email, password, activationCode) => {
       password,
       activationCode: [{
         uuid: activationCode,
-        sendAt: Date.now(),
+        sendAt,
       }],
     });
 
@@ -35,12 +47,21 @@ const createUser = async (email, password, activationCode) => {
   }
 };
 
+/**
+ * Returns the saved user if it is not soft deleted.
+ * @param {String} email user email to search
+ * @returns {Promise<{
+              email:String, password:String,
+              uuid:String, createdAt:Date,
+              updatedAt:Date, activatedAt?:Date
+            }>} saved user data
+ */
 const findByEmail = async (email) => UserModel.findOne({
   email,
   deletedAt: {
     $exists: false,
   },
-}, PROJECTION).lean().exec();
+}, PROJECTION).lean();
 
 module.exports = {
   createUser,

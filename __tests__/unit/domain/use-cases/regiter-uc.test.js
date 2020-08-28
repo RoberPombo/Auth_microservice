@@ -21,7 +21,7 @@ describe('[use cases - unit test] [register]', () => {
   });
 
   it('Should return the activation code', async () => {
-    await expect(registerUc(CONTEXT, USER_DATA.email, USER_DATA.password))
+    await expect(registerUc(CONTEXT, { email: USER_DATA.email, password: USER_DATA.password }))
       .resolves.toMatchObject({
         activationCode: USER_DATA.activationCode[0].uuid,
       });
@@ -30,7 +30,7 @@ describe('[use cases - unit test] [register]', () => {
   it('Should fail and return a ValidationError', async () => {
     const WRONG_PASSWORD = 'A1';
 
-    await expect(registerUc(CONTEXT, USER_DATA.email, WRONG_PASSWORD))
+    await expect(registerUc(CONTEXT, { email: USER_DATA.email, password: WRONG_PASSWORD }))
       .rejects.toMatchObject({
         name: 'ValidationError',
       });

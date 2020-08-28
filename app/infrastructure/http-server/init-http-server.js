@@ -11,8 +11,8 @@ const { contextHook } = require('../../interface/hooks');
 const { logger } = require('../../lib');
 
 const {
-  APP_NAME,
-  CORS_ORIGINS_ALLOWED,
+  APP_NAME = 'auth',
+  CORS_ORIGINS_ALLOWED = '',
 } = process.env;
 
 const BASE_URL = `api/${APP_NAME}`;

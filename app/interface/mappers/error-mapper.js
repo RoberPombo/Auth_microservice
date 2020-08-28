@@ -14,7 +14,7 @@ const businessError = (error) => ({
   headers: { 'Content-type': 'application/json' },
   body: {
     jsonapi: { version: 1.0 },
-    errors: [error.message],
+    errors: error.message,
   },
 });
 

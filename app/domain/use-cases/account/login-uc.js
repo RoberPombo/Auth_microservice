@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const { userAdapter } = require('../adapters');
-const { validateData } = require('../validators');
+const { validateLogin } = require('../validators');
 const { UserRepository } = require('../../repositories');
 const {
   createConflictError,
@@ -20,6 +20,8 @@ const {
 /**
  * Check if the user exists and is activated
  * @param {Object} user saved user data
+ * @throws ConflictError
+ * @throws UnauthorizedError
  */
 const checkUserIsActive = async (user) => {
   if (!user) {
@@ -34,6 +36,7 @@ const checkUserIsActive = async (user) => {
  * Check that the input password is correct.
  * @param {String} password input password
  * @param {String} hashPassword saved password hash
+ * @throws UnauthorizedError
  */
 const checkPassword = async (password, hashPassword) => {
   const match = await bcrypt.compare(password, hashPassword);
@@ -45,8 +48,7 @@ const checkPassword = async (password, hashPassword) => {
 /**
  * Generates the authentication tokens with the user's info.
  * @param {Object} user saved user data
- *
- * @returns {Promise<Object>}
+ * @returns {Promise<{accessToken:String,refreshToken:String,expiresIn:Number}>}
  */
 const generateTokens = async (user) => {
   const { uuid, email, permissions } = user;
@@ -72,18 +74,16 @@ const generateTokens = async (user) => {
 /**
  * Performs a login using the passed email and password.
  * @param {Object} context context object: correlationId, logger, ...
- * @param {String} email user email
- * @param {String} password user password
- *
- * @returns {Promise<Object>} authentication tokens and user data
+ * @param {Object} payload login data
+ * @param {String} payload.email user email
+ * @param {String} payload.password user password
+ * @returns {Promise<{}>} authentication tokens and user data
  * @throws ValidationError when user data is wrong
  * @throws UnauthorizedError when the login fails
  */
-const loginUC = async (context, email, password) => {
-  await validateData({
-    email,
-    password,
-  }, ['email', 'password'], false);
+const loginUC = async (context, payload) => {
+  await validateLogin(payload);
+  const { email, password } = payload;
 
   const user = await UserRepository.findByEmail(email);
   await checkUserIsActive(user);

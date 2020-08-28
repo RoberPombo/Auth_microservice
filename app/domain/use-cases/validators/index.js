@@ -1,7 +1,9 @@
 'use strict';
 
-const validateData = require('./validate-data');
+const validateLogin = require('./validate-login');
+const validateRegister = require('./validate-register');
 
 module.exports = {
-  validateData,
+  validateLogin,
+  validateRegister,
 };
