@@ -13,13 +13,13 @@ const {
 } = require('../../errors');
 
 const checkActivationCode = async (activationCode, user) => {
-  const [actCode] = !user
+  const actCode = !user
     || user.activationCode.filter((code) => code.uuid === activationCode);
 
-  if (actCode.length === 0) {
+  if (actCode.length !== 1) {
     throw createNotFoundError('Activation code not found', 'activation_code_fail');
   }
-  if ((new Date(actCode.sendAt).getTime() + expiresIn - Date.now()) < 0) {
+  if ((new Date(actCode[0].sendAt).getTime() + expiresIn - Date.now()) < 0) {
     throw createForbiddenError('Activation code expired', 'send_new_activation_code');
   }
 };

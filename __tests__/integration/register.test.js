@@ -13,13 +13,13 @@ const EMAIL = faker.internet.email();
 const PASSWORD = faker.internet.password();
 
 const USER_DB = {
-  uuid: '123456789',
+  uuid: faker.random.uuid(),
   email: 'userInBD@test.com',
   password: bcrypt.hashSync('Test123-', 10),
-  activatedAt: Date.now(),
+  activatedAt: new Date(),
   activationCode: [{
-    uuid: '987654321',
-    sendAt: Date.now(),
+    uuid: faker.random.uuid(),
+    sendAt: new Date(),
   }],
 };
 
