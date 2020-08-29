@@ -7,7 +7,10 @@ const helmet = require('fastify-helmet');
 const {
   accountRouter,
 } = require('./routes');
-const { contextHook } = require('../../interface/hooks');
+const {
+  authHook,
+  contextHook,
+} = require('../../interface/hooks');
 const { logger } = require('../../lib');
 
 const {
@@ -25,6 +28,7 @@ server.register(cors, {
 });
 server.decorateRequest('context', {});
 server.addHook('onRequest', contextHook);
+server.addHook('onRequest', authHook);
 server.register(accountRouter, {
   prefix: `${BASE_URL}/account`,
 });

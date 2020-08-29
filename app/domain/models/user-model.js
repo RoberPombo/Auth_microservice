@@ -39,6 +39,11 @@ const userSchema = new Schema({
       type: String,
       required: true,
     },
+    name: {
+      type: String,
+      unique: true,
+      required: true,
+    },
     applications: [{
       appId: {
         type: String,

@@ -10,12 +10,19 @@ const {
 const {
   createForbiddenError,
   createNotFoundError,
+  createConflictError,
 } = require('../../errors');
 
 const checkActivationCode = async (activationCode, user) => {
-  const actCode = !user
-    || user.activationCode.filter((code) => code.uuid === activationCode);
+  if (!user) {
+    throw createNotFoundError('User not found', 'user_does_not_exist');
+  }
+  if (user.activatedAt) {
+    throw createConflictError('Already active user', 'user_is_already_activated');
+  }
 
+  const actCode = user.activationCode
+    .filter((code) => code.uuid === activationCode);
   if (actCode.length !== 1) {
     throw createNotFoundError('Activation code not found', 'activation_code_fail');
   }
