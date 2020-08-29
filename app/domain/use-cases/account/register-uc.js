@@ -12,7 +12,7 @@ const { UserRepository } = require('../../repositories');
  * @param {Object} payload register data
  * @param {String} payload.email user email
  * @param {String} payload.password user password
- * @returns {Promise<{activationCode:String}>} user activation code
+ * @returns {Promise<{activationCode:String,uuid:String}>} user activation code
  * @throws ValidationError when user data is wrong
  * @throws ConflictError when the user already exists
  */
@@ -32,6 +32,7 @@ const registerUc = async (context, payload) => {
 
   return {
     activationCode: user.activationCode[0].uuid,
+    uuid: user.uuid,
   };
 };
 

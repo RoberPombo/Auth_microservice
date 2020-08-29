@@ -63,7 +63,31 @@ const findByEmail = async (email) => UserModel.findOne({
   },
 }, PROJECTION).lean();
 
+/**
+ * Returns the saved user if it is not soft deleted.
+ * @param {String} uuid user id to search
+ * @returns {Promise<{
+  email:String, password:String,
+  uuid:String, createdAt:Date,
+  updatedAt:Date, activatedAt?:Date
+}>} saved user data
+*/
+const findById = async (uuid) => UserModel.findOne({
+  uuid,
+  deletedAt: {
+    $exists: false,
+  },
+}, PROJECTION).lean();
+
+const activate = async (uuid) => UserModel.findOneAndUpdate({
+  uuid,
+}, {
+  activatedAt: Date.now(),
+}).lean();
+
 module.exports = {
   createUser,
   findByEmail,
+  findById,
+  activate,
 };

@@ -29,6 +29,8 @@ const errorMapper = (error) => {
 
   switch (name) {
     case 'ConflictError':
+    case 'ForbiddenError':
+    case 'NotFoundError':
     case 'UnauthorizedError':
     case 'ValidationError':
       return businessError(error);

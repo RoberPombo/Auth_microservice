@@ -37,9 +37,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{authUrl}}/auth/account/login",
+							"raw": "{{baseUrl}}/auth/account/login",
 							"host": [
-								"{{authUrl}}"
+								"{{baseUrl}}"
 							],
 							"path": [
 								"auth",
@@ -60,7 +60,9 @@
 								"id": "fd623507-1faa-4f2b-876c-cfd67859d64e",
 								"exec": [
 									"const response = pm.response.json();",
-									"pm.environment.set(\"userActivationCode\", response.accessToken);"
+									"pm.environment.set(\"userActivationCode\", response.activationCode);",
+									"pm.environment.set(\"userUuid\", response.uuid);",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -86,6 +88,35 @@
 							"path": [
 								"auth",
 								"account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/auth/account/activate?uuid={{userUuid}}&activationCode={{userActivationCode}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"account",
+								"activate"
+							],
+							"query": [
+								{
+									"key": "uuid",
+									"value": "{{userUuid}}"
+								},
+								{
+									"key": "activationCode",
+									"value": "{{userActivationCode}}"
+								}
 							]
 						}
 					},
