@@ -27,7 +27,7 @@ const setUP = async () => {
   await UserModel.create(USER_DB);
 };
 
-describe('[integration test] [login]', () => {
+describe('[integration test] [register]', () => {
   beforeAll(async () => {
     await dbInMemory.connect();
     await setUP();

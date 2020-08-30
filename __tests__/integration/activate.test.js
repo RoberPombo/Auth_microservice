@@ -17,7 +17,6 @@ const USER_DB = {
   uuid: USER_DB_ID,
   email: faker.internet.email(),
   password: faker.internet.password(),
-  activatedAt: new Date(),
   activationCode: [{
     uuid: USER_DB_ACT_CODE,
     sendAt: new Date(),
@@ -27,7 +26,6 @@ const USER_CODE_EXPIRES = {
   uuid: USER_CODE_EXP_ID,
   email: faker.internet.email(),
   password: faker.internet.password(),
-  activatedAt: new Date(),
   activationCode: [{
     uuid: USER_CODE_EXP_ACT_CODE,
     sendAt: new Date(2000, 1, 1),
@@ -66,7 +64,7 @@ describe('[integration test] [activate]', () => {
 
     const res = await server.inject({
       method: 'GET',
-      url: getUri(USER_DB_ID, WRONG_ACT_CODE),
+      url: getUri(USER_CODE_EXP_ID, WRONG_ACT_CODE),
     });
 
     expect(res).toHaveProperty('statusCode', 404);
