@@ -36,7 +36,7 @@ describe('[integration test] [register]', () => {
     await dbInMemory.disconnect();
   });
 
-  it('Should return activationCode', async () => {
+  it('Should return status code Created', async () => {
     const res = await server.inject({
       method: 'POST',
       url: '/api/auth/account',
@@ -47,9 +47,6 @@ describe('[integration test] [register]', () => {
     });
 
     expect(res).toHaveProperty('statusCode', 201);
-    expect(JSON.parse(res.body)).toMatchObject({
-      activationCode: expect.any(String),
-    });
   });
 
   it('Should fail and return a ValidationError', async () => {
