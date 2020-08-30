@@ -26,6 +26,9 @@ paths:
       summary: Create a new user
       operationId: register
       description: Register a new user using an email and a password
+      parameters:
+      - $ref: '#/components/parameters/AuthorizationHeader'
+      - $ref: '#/components/parameters/FeaturesOffHeader'
       requestBody:
         $ref: '#/components/requestBodies/RegisterData'
       responses:
@@ -53,8 +56,8 @@ paths:
       operationId: activate
       description: Activate a user by uuid and activationCode
       parameters:
-      -  $ref: '#/components/parameters/UuidQuery'
-      -  $ref: '#/components/parameters/ActivationCodeQuery'
+      - $ref: '#/components/parameters/UuidQuery'
+      - $ref: '#/components/parameters/ActivationCodeQuery'
       responses:
         204: 
           $ref: '#/components/responses/204-NotContent'
@@ -77,6 +80,20 @@ components:
       schema:
         type: string
         example: 4d2...fd9
+    AuthorizationHeader:
+      name: AuthorizationHeader
+      in: header
+      description: User access token
+      schema:
+        type: string
+        example: Bearer 32d...9g8
+    FeaturesOffHeader:
+      name: x-features-off
+      in: header
+      description: List of ids of feature flags to be deactivated
+      schema:
+        type: string
+        example: notSendEmail,newFeatureId
 
   requestBodies:
     LoginData:

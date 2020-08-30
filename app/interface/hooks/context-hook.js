@@ -1,3 +1,5 @@
+'use strict';
+
 const {
   v4: uuidV4,
   validate: uuidValidate,
@@ -8,14 +10,30 @@ const { logger } = require('../../lib');
 const { APP_NAME } = process.env;
 
 /**
- * Check if request Id header exist
+ * Check if request id header exist.
+ * If not exist, generate a new uuid.
  * @param {Object} headers
- * @returns {Boolean | String}
+ * @returns {String}
  */
 const getRequestHeaders = (headers) => {
   const { 'x-request-id': requestId } = headers;
 
-  return uuidValidate(requestId) && requestId;
+  return uuidValidate(requestId)
+    ? requestId
+    : uuidV4();
+};
+
+/**
+ * Check if features off header exist.
+ * This header is a comma-separated string with the ids of the features
+ * that it want to be disabled in this request.
+ * @param {Object} headers
+ * @returns {String}
+ */
+const getFeaturesOffHeaders = (headers) => {
+  const { 'x-features-off': features = '' } = headers;
+
+  return features;
 };
 
 /**
@@ -27,13 +45,15 @@ const getRequestHeaders = (headers) => {
 const contextHook = (request, reply, done) => {
   try {
     const { headers } = request;
-    const requestId = getRequestHeaders(headers) || uuidV4();
+    const requestId = getRequestHeaders(headers);
+    const features = getFeaturesOffHeaders(headers);
 
     request.context = {
       requestId,
       microservice: APP_NAME,
       init: Date.now(),
       logger,
+      features,
     };
   } catch (error) {
     done(error);

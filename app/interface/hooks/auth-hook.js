@@ -24,6 +24,8 @@ const authHook = (request, reply, done) => {
         ...authData,
         accessToken: token,
       };
+    } else {
+      request.context.auth = { permissions: [] };
     }
   } catch (error) {
     done(error);

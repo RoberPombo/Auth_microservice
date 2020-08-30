@@ -70,7 +70,22 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{userAccessToken}}",
+								"description": "For testing. Only need to activate the feature flag..",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "x-features-off",
+								"value": "notSendEmail",
+								"description": "For testing. Ids array to disable feature flags",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"{{userPassword}}\"\n}",
