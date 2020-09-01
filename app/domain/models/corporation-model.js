@@ -8,9 +8,13 @@ const corporationSchema = new Schema({
     unique: true,
     required: true,
   },
-  name: {
+  corpSlug: {
     type: String,
     unique: true,
+    required: true,
+  },
+  name: {
+    type: String,
     required: true,
   },
   ownerId: {
@@ -24,11 +28,15 @@ const corporationSchema = new Schema({
   applications: [{
     uuid: {
       type: String,
-      unique: true,
+      required: true,
+    },
+    appSlug: {
+      type: String,
+      required: true,
     },
     name: {
       type: String,
-      unique: true,
+      required: true,
     },
     accessLevel: String,
   }],

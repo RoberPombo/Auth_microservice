@@ -7,8 +7,8 @@ process.env.REFRESH_TOKEN_EXPIRATION = '100';
 const faker = require('faker');
 const bcrypt = require('bcrypt');
 
-const { loginUC } = require('../../../../app/domain/use-cases/account');
-const { UserRepository } = require('../../../../app/domain/repositories');
+const { loginUC } = require('../../../../../app/domain/use-cases/account');
+const { UserRepository } = require('../../../../../app/domain/repositories');
 
 const CONTEXT = {};
 const PASSWORD = 'pass123!';

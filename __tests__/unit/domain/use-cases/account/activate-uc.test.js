@@ -2,8 +2,8 @@
 
 const faker = require('faker');
 
-const { activateUC } = require('../../../../app/domain/use-cases/account');
-const { UserRepository } = require('../../../../app/domain/repositories');
+const { activateUC } = require('../../../../../app/domain/use-cases/account');
+const { UserRepository } = require('../../../../../app/domain/repositories');
 
 const ACTIVATION_CODE = faker.random.uuid();
 const USER_ID = faker.random.uuid();

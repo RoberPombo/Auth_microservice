@@ -6,6 +6,7 @@ const helmet = require('fastify-helmet');
 
 const {
   accountRouter,
+  corporationRouter,
 } = require('./routes');
 const {
   authHook,
@@ -31,6 +32,9 @@ server.addHook('onRequest', contextHook);
 server.addHook('onRequest', authHook);
 server.register(accountRouter, {
   prefix: `${BASE_URL}/account`,
+});
+server.register(corporationRouter, {
+  prefix: `${BASE_URL}/corp`,
 });
 
 server.setErrorHandler((error, request, reply) => {

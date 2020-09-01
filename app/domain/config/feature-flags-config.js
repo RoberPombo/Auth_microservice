@@ -18,7 +18,11 @@ const config = {
       id: 'notSendEmail',
       name: 'Not send email',
       description: 'In order to test the creation and activation of a user',
-      endpoints: ['register'],
+      endpoints: [{
+        name: 'register',
+        uri: '/account',
+        method: 'post',
+      }],
       criteria: {
         isCorporation: 'testCORP',
         isDeactivatedFlag: 'notSendEmail',

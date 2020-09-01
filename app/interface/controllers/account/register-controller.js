@@ -2,7 +2,7 @@
 
 const { errorMapper } = require('../../mappers');
 const { registerUc } = require('../../../domain/use-cases/account');
-const { flags } = require('../../../lib');
+const { flags } = require('../../../domain/entity');
 
 const registerController = async (request, reply) => {
   const { context } = request;

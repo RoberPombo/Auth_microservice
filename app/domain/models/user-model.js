@@ -39,12 +39,24 @@ const userSchema = new Schema({
       type: String,
       required: true,
     },
+    corpSlug: {
+      type: String,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
     },
     applications: [{
-      appId: {
+      uuid: {
+        type: String,
+        required: true,
+      },
+      appSlug: {
+        type: String,
+        required: true,
+      },
+      name: {
         type: String,
         required: true,
       },

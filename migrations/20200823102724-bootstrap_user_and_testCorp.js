@@ -18,7 +18,8 @@ const ADMIN_USER = {
   permissions: [{
     corporationId: CORP_UUID,
     role: 'superadmin',
-    name: 'testCORP',
+    corpSlug: 'testCORP',
+    name: 'Testing Corporation',
     applications: [],
   }],
   profile: {
@@ -27,7 +28,8 @@ const ADMIN_USER = {
 };
 const TEST_CORP = {
   uuid: CORP_UUID,
-  name: 'testCORP',
+  corpSlug: 'testCORP',
+  name: 'Testing Corporation',
   ownerId: ADMIN_USER.uuid,
   ownerName: ADMIN_USER.profile.fullName,
   applications: [],

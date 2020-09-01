@@ -2,8 +2,8 @@
 
 const faker = require('faker');
 
-const { registerUc } = require('../../../../app/domain/use-cases/account');
-const { UserRepository } = require('../../../../app/domain/repositories');
+const { registerUc } = require('../../../../../app/domain/use-cases/account');
+const { UserRepository } = require('../../../../../app/domain/repositories');
 
 const CONTEXT = {};
 const USER_DATA = {
