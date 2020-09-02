@@ -10,7 +10,7 @@ const flagController = async (request, reply) => {
 
     const features = await flagUc(context, { corpSlug });
 
-    reply.code(200).send(features);
+    reply.code(200).send({ data: features });
   } catch (error) {
     context.logger
       .info(`${error.name}: ${JSON.stringify(error.message)}`);

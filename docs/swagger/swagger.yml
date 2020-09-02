@@ -17,6 +17,8 @@ servers:
 tags:
   - name: Account
     description: Accounts endpoints
+  - name: Corporation
+    description: Corporation endpoints
 
 paths:
   /account:
@@ -33,7 +35,7 @@ paths:
         $ref: '#/components/requestBodies/RegisterData'
       responses:
         201:
-          $ref: '#/components/responses/201-RegisterResponse'
+          $ref: '#/components/responses/201-PostRegister'
 
   /account/login:
     post:
@@ -46,7 +48,7 @@ paths:
         $ref: '#/components/requestBodies/LoginData'
       responses:
         200:
-          $ref: '#/components/responses/200-LoginResponse'
+          $ref: '#/components/responses/200-PostLogin'
 
   /account/activate:
     get:
@@ -56,15 +58,36 @@ paths:
       operationId: activate
       description: Activate a user by uuid and activationCode
       parameters:
-      - $ref: '#/components/parameters/UuidQuery'
-      - $ref: '#/components/parameters/ActivationCodeQuery'
+      - $ref: '#/components/parameters/UuidQueryParam'
+      - $ref: '#/components/parameters/ActivationCodeQueryParam'
       responses:
         204: 
           $ref: '#/components/responses/204-NotContent'
 
+  /corp/{corpSlug}/flags:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Corporation
+      summary: List of feature flags
+      operationId: feature-flag
+      description: List of features flags for testing
+      parameters:
+      - $ref: '#/components/parameters/CorpSlugPathParam'
+      responses:
+        200:
+          $ref: '#/components/responses/200-GetFeaturesFlags'
+
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
   parameters:
-    UuidQuery:
+    UuidQueryParam:
       name: uuid
       in: query
       description: user id
@@ -72,7 +95,7 @@ components:
       schema:
         type: string
         example: 4d2...fd9
-    ActivationCodeQuery:
+    ActivationCodeQueryParam:
       name: activationCode
       in: query
       description: user activation code
@@ -94,6 +117,14 @@ components:
       schema:
         type: string
         example: notSendEmail,newFeatureId
+    CorpSlugPathParam:
+      name: corpSlug
+      in: path
+      required: true
+      description: corporation slug
+      schema:
+        type: string
+        example: testCORP
 
   requestBodies:
     LoginData:
@@ -122,7 +153,19 @@ components:
                 $ref: '#/components/schemas/Password'
 
   responses:
-    200-LoginResponse:
+    200-GetFeaturesFlags:
+      description: List of features flags
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FeatureFlag'
+                              
+    200-PostLogin:
       description: User logged correctly
       content:
         application/json:
@@ -137,7 +180,7 @@ components:
                 $ref: "#/components/schemas/ExpiresIn"
               user:
                 $ref: '#/components/schemas/UserProfile'
-    201-RegisterResponse:
+    201-PostRegister:
       description: User created correctly
       content:
         application/json:
@@ -165,6 +208,25 @@ components:
     ExpiresIn:
       type: number
       example: 1000
+
+    FeatureFlag:
+      type: object
+      properties:
+        id:
+          type: string
+          example: notSendEmail
+        name:
+          type: string
+          example: Not send email
+        description:
+          type: string
+          example: For testing purposes,...
+        endpoints:
+          type: array
+          items:
+            type: object
+        criteria:
+          type: object  
 
     Password:
       type: string

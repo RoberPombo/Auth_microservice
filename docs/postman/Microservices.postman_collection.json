@@ -9,133 +9,174 @@
 			"name": "Auth",
 			"item": [
 				{
-					"name": "Login",
-					"event": [
+					"name": "Corporation",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"id": "fd623507-1faa-4f2b-876c-cfd67859d64e",
-								"exec": [
-									"const response = pm.response.json();",
-									"pm.environment.set(\"userAccessToken\", response.accessToken);",
-									"pm.environment.set(\"userUuid\", response.user.uuid);"
+							"name": "Feature flags",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{userAccessToken}}",
+										"type": "text"
+									}
 								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"{{userPassword}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/auth/account/login",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"account",
-								"login"
-							]
-						},
-						"description": "Register a new user using email and password"
-					},
-					"response": []
-				},
-				{
-					"name": "Register",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "fd623507-1faa-4f2b-876c-cfd67859d64e",
-								"exec": [
-									"const response = pm.response.json();",
-									"pm.environment.set(\"userActivationCode\", response.activationCode);",
-									"pm.environment.set(\"userUuid\", response.uuid);",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{userAccessToken}}",
-								"description": "For testing. Only need to activate the feature flag..",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "x-features-off",
-								"value": "notSendEmail",
-								"description": "For testing. Ids array to disable feature flags",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"{{userPassword}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/auth/account",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"account"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Activate",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/auth/account/activate?uuid={{userUuid}}&activationCode={{userActivationCode}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"account",
-								"activate"
-							],
-							"query": [
-								{
-									"key": "uuid",
-									"value": "{{userUuid}}"
+								"url": {
+									"raw": "{{baseUrl}}/auth/corp/testCORP/flags",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"corp",
+										"testCORP",
+										"flags"
+									]
 								},
-								{
-									"key": "activationCode",
-									"value": "{{userActivationCode}}"
-								}
-							]
+								"description": "Get all feature flags"
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Account",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fd623507-1faa-4f2b-876c-cfd67859d64e",
+										"exec": [
+											"const response = pm.response.json();",
+											"pm.environment.set(\"userAccessToken\", response.accessToken);",
+											"pm.environment.set(\"userUuid\", response.user.uuid);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"{{userPassword}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/account/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"account",
+										"login"
+									]
+								},
+								"description": "Register a new user using email and password"
+							},
+							"response": []
+						},
+						{
+							"name": "Register",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fd623507-1faa-4f2b-876c-cfd67859d64e",
+										"exec": [
+											"const response = pm.response.json();",
+											"pm.environment.set(\"userActivationCode\", response.activationCode);",
+											"pm.environment.set(\"userUuid\", response.uuid);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{userAccessToken}}",
+										"description": "For testing. Only need to activate the feature flag..",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "x-features-off",
+										"value": "notSendEmail",
+										"description": "For testing. Ids array to disable feature flags",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"{{userPassword}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/account",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"account"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Activate",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/auth/account/activate?uuid={{userUuid}}&activationCode={{userActivationCode}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"account",
+										"activate"
+									],
+									"query": [
+										{
+											"key": "uuid",
+											"value": "{{userUuid}}"
+										},
+										{
+											"key": "activationCode",
+											"value": "{{userActivationCode}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
 			],
 			"protocolProfileBehavior": {}

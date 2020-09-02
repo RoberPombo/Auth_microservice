@@ -17,7 +17,7 @@ const config = {
     {
       id: 'notSendEmail',
       name: 'Not send email',
-      description: 'In order to test the creation and activation of a user',
+      description: 'For testing purposes, creation and activation of a user',
       endpoints: [{
         name: 'register',
         uri: '/account',
