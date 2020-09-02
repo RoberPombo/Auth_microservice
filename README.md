@@ -10,11 +10,11 @@ _Clona o descarga el proyecto. Y ejecuta: npm install.
 Es necesario tener un archivo .env con los datos indicados en el template (.env.template). El dato más importante es el string de conexión válido con Mongo.
 Una vez cumplimentado el fichero: npm start_
 
-_Si tienes Docker instalado (https://docs.docker.com/get-docker/) la forma más rapida de empezar a probar el proyecto es:
-Dentro de la carpeta ./local_debug, renombrar el template a Docker.env
+_La forma más rápida de empezar a probar el proyecto es usando docker (enlace para instalar docker: https://docs.docker.com/get-docker/):
+Dentro de la carpeta ./local_debug, renombrar el template (Docker.env.template) a Docker.env y el template (env.template) a .env.
 Ejecutar: npm run docker_
 
-_Además hay una migration que crea un usuario en la BBDD (se necesita el archivo .env en la carpeta raíz):_
+_Además hay una migration que crea un usuario en la BBDD que pertenece a la corporación testCORP:_
 
 ```
 email: admin@admin.com
