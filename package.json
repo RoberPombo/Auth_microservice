@@ -27,7 +27,7 @@
     "fastify-plugin": "^2.3.0",
     "fflip": "^4.0.0",
     "http-status-codes": "^1.4.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "migrate-mongo": "^8.1.1",
     "mongoose": "^5.9.28",
     "pino": "^6.5.1",
