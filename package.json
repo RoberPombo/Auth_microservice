@@ -18,7 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "ajv": "^6.12.4",
-    "axios": "^0.19.2",
+    "axios": "^0.21.2",
     "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "fastify": "^3.2.0",
